@@ -56,7 +56,7 @@ public:
 		}
 
         for (int i = 0; i < frequencies.size(); i++){
-            std::cout << frequencies[i] << std::endl;
+            //std::cout << frequencies[i] << std::endl;
 			characters_to_decode += frequencies[i];
         }
 		std::cout << "Total characters to decode: " << characters_to_decode << std::endl;
@@ -72,6 +72,7 @@ public:
 		}
 	}
 	void decrypt_code(){
+		decoded_text = "";
 		for (int i = 0; i < encrypted_text.size(); i++){
 			if (decoding_key.find(encrypted_text[i]) == std::string::npos){
 				decoded_text += encrypted_text[i];
@@ -110,11 +111,11 @@ public:
 		return largest_error_index;
 	};
 
-	void switch_weakest(int index){
-		char value_1 = decoding_key[index];
-		char value_2 = decoding_key[index+1];
-		decoding_key[index] = value_2;
-		decoding_key[index+1] = value_1;
+	void switch_weakest(int index1, int index2){
+		char value_1 = decoding_key[index1];
+		char value_2 = decoding_key[index2];
+		decoding_key[index1] = value_2;
+		decoding_key[index2] = value_1;
 		errors = {};
 	}
 
@@ -128,20 +129,29 @@ int main() {
 	Text_to_decrypt msg = Text_to_decrypt();
 	msg.get_frequency();
 	msg.generate_key_basic();
-
+	int index1 = 0;
+	int index2 = 0;
+	char value1 = 'a';
+	char value2 = 'a';
 	int accuracy = 0;
 
-	while (accuracy < 10){
-	msg.calculate_key_error();
-	std::cout << "Accuracy: " << std::endl;
-	std::cin >> accuracy;
-	int index = msg.get_weakest_correlation();
-	msg.switch_weakest(index);
-	}
+	while (true){
+		//msg.calculate_key_error();
+		msg.decrypt_code();
+		std::cout << msg.decoding_key << std::endl;
+		std::cout << msg.decoded_text << std::endl;
+		std::cout << "What letters to switch?: " << std::endl;
+		std::cout << "Choice 1: ";
+		std::cin >> value1;
+		std::cout << " \n Choice 2: ";
+		std::cin >> value2;
+		index1 = msg.decoding_key.find(value1);
+		index2 = msg.decoding_key.find(value2);
+		msg.switch_weakest(index1, index2);
+	};
+
 	
 	//msg.decrypt_code();
-	std::cout << msg.decoding_key << std::endl;
-	std::cout << msg.decoded_text << std::endl;
     std::string exit;
     std::cin >> exit;
 	return 0;
