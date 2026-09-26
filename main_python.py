@@ -74,7 +74,10 @@ if __name__ == '__main__':
         print('What letters to switch? ')
         value1 = input('Choice 1: ')
         value2 = input('Choice 2: ')
-        msg.reference_key = msg.reference_key.replace(value1, value2)
+        msg.reference_key = msg.reference_key.replace(value1, '*')
+        msg.reference_key = msg.reference_key.replace(value2, value1)
+        msg.reference_key = msg.reference_key.replace('*', value2)
+        
         
                 
 
