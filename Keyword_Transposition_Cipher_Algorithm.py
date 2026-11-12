@@ -3,7 +3,7 @@ untranslated_text = [*input("What is the untranslated text?\n")]
 while True:
   key = [*input("What is the transposition key of the enciphered text? Input the keyword:\n")]
   alphabet = ["A","B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-  encipher_decipher = input("Are you Enciphering or Deciphering (C OR D)?\n")
+  encipher_decipher = input("Are you Enciphering or Deciphering (E OR D)?\n")
   for character in range(0, len(key)):
     for letter in range(0, len(alphabet)):
       if key[character] == alphabet[letter]:
